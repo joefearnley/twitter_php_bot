@@ -27,6 +27,10 @@ class TwitterTest {
 
 	function testShowFriendship() {
 	}
+
+	function testPantsOnTheGround() {
+	}
+
 }
 
 ?>
