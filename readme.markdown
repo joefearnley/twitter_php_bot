@@ -5,7 +5,7 @@ The idea is to run it on a regular basis, like everyday., in the mourning maybe.
 
 Usage:
 
-php update.php -s username -p password -s search_terms
+php update_twitter.php -s username -p password -s search_terms
 
 
 I think this could have been useful a couple of years ago. Backward thinking?
