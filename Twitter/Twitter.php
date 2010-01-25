@@ -9,7 +9,7 @@
  *
  * @author joe fearnley - - modified search() function
  *                        - added searchSingle() function
- *                        - added showUserByScreenName() function 
+ *                        - added showUserByUserName() function 
  *                        - added showFriendship() function  
  *
  * @version 1.1
@@ -17,7 +17,7 @@
  * @subpackage classes
  */
 
-class twitter{
+class twitter {
 	/**
 	 * Authenticating Twitter user
 	 * @var string
@@ -478,12 +478,10 @@ class twitter{
 	 * their widgets according to a given user's preferences.	 
 	 *
 	 * @author joe fearnley
-	 *
 	 * @param string $screen_name Optional. The screen name of the user being requested (can use in place of $id)
-	 *
 	 * @return string
 	 */
-	function showUserByScreenName($screen_name=false)
+	function showUserByUserName($screen_name=false)
 	{
 	    if( !in_array( $this->type, array( 'xml','json' ) ) ) {
 	        return false;

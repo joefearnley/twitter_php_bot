@@ -9,8 +9,24 @@
  * I modified the Twitter class by adding some additional
  * functions. These are the units tests for those functions.
  */ 
-class TwitterTest  {
+class TwitterTest {
 
+	private twitter;
+
+	function setUp() {
+	}
+
+	function testSearch() {
+	}
+
+    function testSearchSingle() {
+	}
+
+	function testShowUserByUserName() {
+	}
+
+	function testShowFriendship() {
+	}
 }
 
 ?>
