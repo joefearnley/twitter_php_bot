@@ -22,8 +22,6 @@ class TwitterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function testSearch() {
-
-		
 	}
 
     function testSearchSingle() {
