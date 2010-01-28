@@ -18,6 +18,7 @@ class TwitterTest extends PHPUnit_Framework_TestCase {
 
 	function setUp() {
 		include_once('../twitter/Twitter.php');
+		include_once('../config/Twitter.php');
 		$twitter = new twitter(); 
 	}
 
