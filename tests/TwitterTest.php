@@ -22,8 +22,8 @@ class TwitterTest extends PHPUnit_Framework_TestCase {
 		include_once('../config/config.php');
 		
 		$twitter = new twitter($config['username'], $config['password']);
-		$are_we_on = $twitter->twitterAvailable();
-		$this->assertTrue($are_we_on);
+		$avail = $twitter->twitterAvailable();
+		$this->assertTrue($avail);
 	}
 
 	function testSearch() 
