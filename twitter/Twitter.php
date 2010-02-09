@@ -897,8 +897,8 @@ class summize extends twitter
 	 */
 	var $stype='json';	
 
-/*	
-	function search( $terms=false, $callback=false )
+
+	function searchOriginal( $terms=false, $callback=false )
 	{
 		if( !$terms )
 			return false;
@@ -912,7 +912,7 @@ class summize extends twitter
 			
 		return $this->objectify( $this->process($request . '?' . implode('&',$qs) ) );
 	}
-*/
+
 
     /**
      * Search twitter for tweets containing the terms and a limit of rpp;
@@ -921,14 +921,15 @@ class summize extends twitter
 	 *
      * @param $terms
      * @param $rrp
+     * 
+     * @return twitter api object
      */
-    function search($terms="", $since_id = 0) {
-
-		if( !$terms ) {
+    function search($terms='') {
+		if( $terms ==  "") {
             return false;
         }
 
-        $request = 'http://search.twitter.com/search.' . $this->stype . '?q=' . $terms . '&since_id='.$since_id;
+        $request = 'http://search.twitter.com/search.' . $this->stype . '?q=' . $terms;
         return $this->objectify( $this->process($request) );
     }
 
