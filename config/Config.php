@@ -2,17 +2,38 @@
 
 class Config {
 	
-	private static $username = '';
-	private static $password = '';
-	private static $search_terms = array();
+	private static $username;
+	private static $password;
+	private static $search_terms;
+	private static $instance;
 
-	function getConfig() {
-		$config = array();
-		$config['username'] = $this->username;
-		$config['password'] = $this->password;
-		$config['search_terms'] = $this->search_terms;
+	private function __construct() 
+	{ 
+		$this->username = 'j3fearnl';
+ 		$this->password = '!B33r!';	
+		$this->search_terms = array('hockey');
+	}
+
+	public static function getInstance()
+	{
+		if (!self::$instance) {
+			self::$instance = new Config();
+		}
+
+		return self::$instance;
+	}
 	
-		return $config;
+	
+	public function getUsername() {
+		return $this->username;
+	}
+
+	public function getPassword() {
+		return $this->password;
+	}
+	
+	public function getSearchTerms() {
+		return $this->search_terms;
 	}
 }
 ?>
