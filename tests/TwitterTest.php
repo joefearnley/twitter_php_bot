@@ -19,11 +19,16 @@ class TwitterTest extends PHPUnit_Framework_TestCase {
 	function setUp() 
 	{
 		include_once('../twitter/Twitter.php');
-		include_once('../config/config.php');
-		
-		$twitter = new twitter($config['username'], $config['password']);
-		$avail = $twitter->twitterAvailable();
-		$this->assertTrue($avail);
+		include_once('../config/TwitterBotConfig.php');		
+
+		$config = TwitterBotConfig();		
+		$this->assertNotNull($config);
+		$this->assertEquals($config->username, 'j3fearnl');
+
+
+//		$twitter = new twitter($config['username'], $config['password']);
+//		$avail = $twitter->twitterAvailable();
+//		$this->assertTrue($avail);
 	}
 
 	function testSearch() 
