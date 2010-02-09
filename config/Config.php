@@ -9,9 +9,9 @@ class Config {
 
 	private function __construct() 
 	{ 
-		$this->username = 'j3fearnl';
- 		$this->password = '!B33r!';	
-		$this->search_terms = array('hockey');
+		$this->username = '';
+ 		$this->password = '';	
+		$this->search_terms = array('');
 	}
 
 	public static function getInstance()
