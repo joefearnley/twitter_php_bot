@@ -914,23 +914,23 @@ class summize extends twitter
 	}
 
 
-    /**
-     * Search twitter for tweets containing the terms and a limit of rpp;
-     *
+	/**
+	 * Search twitter for tweets containing the terms and a limit of rpp;
+	 *
 	 * @author joe fearnley
 	 *
-     * @param $terms
-     * @param $rrp
-     * 
-     * @return twitter api object
-     */
-    function search($terms='') {
-		if( $terms ==  "") {
-            return false;
-        }
+	 * @param $terms
+	 * @param $rrp
+	 * 
+	 * @return twitter api object
+	 */
+	function search($terms='') {
+		if( $terms ==  '') {
+			return false;
+		}
 
-        $request = 'http://search.twitter.com/search.' . $this->stype . '?q=' . $terms;
-        return $this->objectify( $this->process($request) );
+		$request = 'http://search.twitter.com/search.' . $this->stype . '?q=' . $terms;
+		return $this->objectify( $this->process($request) );
     }
 
 
