@@ -26,6 +26,12 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 		$this->twitter = new twitter();
 		$this->summize = new summize();
 		
+//		$this->twitter->username = $this->config->getUsername(); 
+//		$this->twitter->password = $this->config->getPassword();
+
+//		$this->summize->username = $this->config->getUsername(); 
+//		$this->summize->password = $this->config->getPassword();
+				
 		$avail = $this->twitter->twitterAvailable();
 		$this->assertTrue($avail);
 	}
@@ -39,24 +45,13 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 	
 	function testSearch() 
 	{
+		$search_string = '';
 		$search_terms = $this->config->getSearchTerms();
-	
-		for($i = 0; $i < sizeof($search_terms); $i++) {
-			$search_string = $search_string . '+' . $search_terms[$i];
-		}
 
-		if($search_string[0] == '+') {
-			$search_string[0] = '';
-		}
 
-		$search_results = $this->summize->search($search_string);
+		$search_results = $this->summize->search(urlencode($search_string));	
+		$this->assertFalse(!$search_results);
 		
-		
-		print $search_results . "\n\n\n";
-		die();
-
-		$this->assertTrue($search_results);
-
 		foreach($search_results->results as $tweet) {
 			$this->assertTrue($tweet);
 			$this->assertTrue(strpos($tweet, 'hockey') === true);
