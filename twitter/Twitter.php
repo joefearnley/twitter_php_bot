@@ -924,7 +924,8 @@ class summize extends twitter
 	 * 
 	 * @return twitter api object
 	 */
-	function search($terms='') {
+	function search($terms='') 
+	{
 		if( $terms ==  '') {
 			return false;
 		}

@@ -48,14 +48,13 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 		$search_string = '';
 		$search_terms = $this->config->getSearchTerms();
 
-
 		$search_results = $this->summize->search(urlencode($search_string));	
 		$this->assertFalse(!$search_results);
 		
 		foreach($search_results->results as $tweet) {
 			$this->assertTrue($tweet);
 			$this->assertTrue(strpos($tweet, 'hockey') === true);
-		}		
+		}
 	}
 
     function testSearchSingle() 
