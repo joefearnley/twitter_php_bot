@@ -12,6 +12,7 @@
 
 require_once 'PHPUnit/Framework.php';
 require_once '../twitter/Twitter.php';
+require_once '../twitter/TwitterBot.php';
 require_once '../config/Config.php';	
 
 class TwitterTest extends PHPUnit_Framework_TestCase 
@@ -45,15 +46,12 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 	
 	function testSearch() 
 	{
-		$search_string = '';
 		$search_terms = $this->config->getSearchTerms();
+		$search_string = TwitterBot::formatSearchString($search_terms);
+		$search_results = $this->summize->search(urlencode($search_string));
 
-		$search_results = $this->summize->search(urlencode($search_string));	
-		$this->assertFalse(!$search_results);
-		
 		foreach($search_results->results as $tweet) {
-			$this->assertTrue($tweet);
-			$this->assertTrue(strpos($tweet, 'hockey') === true);
+			$this->assertTrue(strpos(trim(strtolower($tweet->text)), 'hockey') > 0);
 		}
 	}
 
