@@ -8,7 +8,6 @@
  * @author Keith Casey <caseysoftware@gmail.com>
  *
  * @author joe fearnley - - modified search() function
- *                        - added searchSingle() function
  *                        - added showUserByUserName() function 
  *                        - added showFriendship() function  
  *
@@ -932,25 +931,6 @@ class summize extends twitter
 
 		$request = 'http://search.twitter.com/search.' . $this->stype . '?q=' . $terms;
 		return $this->objectify( $this->process($request) );
-    }
-
-
-    /**
-     * Search twitter for tweets containing the terms, an rrp, and a since_id
-     *
-	 * @author joefearnley
-	 *
-     * @param $terms
-     * @param $rrp
-     * @param $since_id
-     */
-    function searchSingle($terms = "", $rpp, $since_id = 0) {
-        if( !$terms ) {
-            return false;
-        }
-
-        $request = 'http://search.twitter.com/search.'.$this->stype.'?q='.$terms.'&rpp='.$rpp.'&since_id='.$since_id;
-        return $this->process($request);
     }
 
 	function trends( $callback = false )

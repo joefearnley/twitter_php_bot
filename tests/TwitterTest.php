@@ -55,10 +55,6 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 		}
 	}
 
-    function testSearchSingle() 
-	{
-	}
-
 	function testShowUserByUserName() 
 	{
 	}
@@ -69,6 +65,10 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
 	function testPantsOnTheGround() 
 	{
+		$pants_on_the_group = true;
+		$lookin_like_a_fool = true;
+		$this->assertTrue($pants_on_the_group);
+		$this->assertTrue($lookin_like_a_fool);
 	}
 }
 
