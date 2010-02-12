@@ -463,11 +463,6 @@ class twitter {
 	    endif;
 	    
         $request = 'http://twitter.com/users/show/' . $qs . $this->type;
-        
-		
-		print "\n\n" . $request . "\n\n";
-
-
 		return $this->objectify( $this->process($request) );
 	}
 
@@ -491,7 +486,6 @@ class twitter {
 		}
 
         $request = 'http://twitter.com/users/show/type.' . $this->type . $qs;
-
 		return $this->objectify( $this->process($request) );
 	}
 	

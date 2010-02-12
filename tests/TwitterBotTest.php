@@ -20,7 +20,7 @@ class TwitterBotTest extends PHPUnit_Framework_TestCase
 	protected $summize = null;
 	protected $config = null;
 	protected $twitter_bot = null;
-	
+ 
 	public function setUp() 
 	{	
 		$this->config = Config::getInstance();
@@ -31,8 +31,10 @@ class TwitterBotTest extends PHPUnit_Framework_TestCase
 
 	public function tearDown()
 	{
-		$avail = $this->twitter->twitterAvailable();
-		$this->assertTrue($avail);
+		unset($this->config);
+		unset($this->twitter);
+		unset($this->summize);
+		unset($this->twitter_bot);
 	}
 
 	public function testFormatSearchString($search_string = '') {

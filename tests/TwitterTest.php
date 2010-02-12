@@ -20,9 +20,9 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 	protected $twitter = null;
 	protected $summize = null;
 	protected $config = null;
-	
+
 	function setUp() 
-	{	
+	{
 		$this->config = Config::getInstance();
 		$this->twitter = new twitter();
 		$this->summize = new summize();
