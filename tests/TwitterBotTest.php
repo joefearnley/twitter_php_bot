@@ -17,7 +17,6 @@ require_once '../config/Config.php';
 class TwitterBotTest extends PHPUnit_Framework_TestCase 
 {	
 	protected $twitter = null;
-	protected $summize = null;
 	protected $config = null;
 	protected $twitter_bot = null;
  
@@ -25,7 +24,6 @@ class TwitterBotTest extends PHPUnit_Framework_TestCase
 	{	
 		$this->config = Config::getInstance();
 		$this->twitter = new twitter();
-		$this->summize = new summize();
 		$this->twitter_bot = new TwitterBot();
 	}
 
@@ -33,7 +31,6 @@ class TwitterBotTest extends PHPUnit_Framework_TestCase
 	{
 		unset($this->config);
 		unset($this->twitter);
-		unset($this->summize);
 		unset($this->twitter_bot);
 	}
 
