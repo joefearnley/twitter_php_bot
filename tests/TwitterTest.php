@@ -18,20 +18,15 @@ require_once '../config/Config.php';
 class TwitterTest extends PHPUnit_Framework_TestCase 
 {
 	protected $twitter = null;
-	protected $summize = null;
 	protected $config = null;
 
 	function setUp() 
 	{
 		$this->config = Config::getInstance();
 		$this->twitter = new twitter();
-		$this->summize = new summize();
 		
 //		$this->twitter->username = $this->config->getUsername(); 
 //		$this->twitter->password = $this->config->getPassword();
-
-//		$this->summize->username = $this->config->getUsername(); 
-//		$this->summize->password = $this->config->getPassword();
 				
 		$avail = $this->twitter->twitterAvailable();
 		$this->assertTrue($avail);
@@ -41,29 +36,38 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 	{
 		unset($this->config);
 		unset($this->twitter);
-		unset($this->summize);
 	}
-	
-	function testSearch() 
+
+	public function testSearch() 
 	{
 		$search_terms = $this->config->getSearchTerms();
 		$search_string = TwitterBot::formatSearchString($search_terms);
-		$search_results = $this->summize->search(urlencode($search_string));
-
+		$search_results = $this->twitter->search(urlencode($search_string));
+	
 		foreach($search_results->results as $tweet) {
 			$this->assertTrue(strpos(trim(strtolower($tweet->text)), 'hockey') > 0);
 		}
 	}
 
-	function testShowUserByUserName() 
+	public function testShowUser() 
 	{
+		$user_info = $this->twitter->showUser(false, false, false, $this->config->getUsername());
+		$this->assertEquals($user_info->screen_name, $this->config->getUsername());
+		$this->assertEquals($user_info->id, 109110810);
+		$this->assertNull($user_info->location);
 	}
 
-	function testShowFriendship() 
+	public function testShowFriendship() 
 	{
+		$source_user = $this->config->getUsername();
+		$target_user = 'joefearnley';
+		$friendship = $this->twitter->showFriendship($source_user, $target_user);
+		
+		$this->assertEquals($friendship->relationship->target->screen_name, 'joefearnley');
+		$this->assertTrue($friendship->relationship->target->followed_by);
 	}
 
-	function testPantsOnTheGround() 
+	public function testPantsOnTheGround() 
 	{
 		$pants_on_the_group = true;
 		$lookin_like_a_fool = true;
