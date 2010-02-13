@@ -7,11 +7,18 @@
  * @date 12/23/09
  * 
  */ 
-class TwitterBot {
-	
+
+require_once '../twitter/Twitter.php';
+
+class TwitterBot extends Twitter {
+
 	function __construct() 
 	{ 
-		// create a twitter object...
+	}
+	
+	public function init()
+	{
+		
 	}
 
 	public function formatSearchString($search_terms = array()) {	
