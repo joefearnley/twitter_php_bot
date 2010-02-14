@@ -32,6 +32,7 @@ class TwitterBot extends Twitter {
 		foreach($search_results->results as $tweet) {
 			$user_info = $this->twitter->showUser(false, false, false, $this->username);
 			$friendship = $this->showFriendship($source_user, $target_user);
+
 			if(!$friendship->relationship->target->followed_by) {
 				$this->followUser($user_info->id, false)
 			}
