@@ -17,8 +17,7 @@ class TwitterBot extends Twitter {
 	}
 	
 	public function init()
-	{
-		
+	{		
 	}
 
 	public function formatSearchString($search_terms = array()) {	

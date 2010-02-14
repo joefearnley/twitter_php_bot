@@ -15,7 +15,7 @@ require_once '../twitter/TwitterBot.php';
 require_once '../config/Config.php';
 
 class TwitterBotTest extends PHPUnit_Framework_TestCase 
-{	
+{
 	protected $twitter = null;
 	protected $config = null;
 	protected $twitter_bot = null;
