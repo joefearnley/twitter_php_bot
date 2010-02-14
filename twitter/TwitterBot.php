@@ -29,36 +29,22 @@ class TwitterBot extends Twitter {
 		$search_string = $this->formatSearchString($search_terms);
 		$search_results = $this->search(urlencode($search_string));
 
-		// lets test kids.....
-
 		foreach($search_results->results as $tweet) {
-			// get the user info. (make function for this?)
 			$user_info = $this->twitter->showUser(false, false, false, $this->username);
-
-			// befriend them (make a function for this)...and test it.
-
+			$friendship = $this->showFriendship($source_user, $target_user);
+			if(!$friendship->relationship->target->followed_by) {
+				$this->followUser($user_info->id, false)
+			}
 		}
-	}
-
-	public function followUser()
-	{
-		
-		twitter->showUser(false, false, false, $this->username);
-		
 	}
 
 	public function formatSearchString($search_terms = array()) 
 	{
 		$search_string = '';
-
 		for($i = 0; $i < sizeof($search_terms); $i++) {
 			$search_string = $search_string . '+' . $search_terms[$i];
 		}
-
-		if($search_string[0] == '+') {
-			$search_string[0] = '';
-		}
-
+		$search_string[0] = ($search_string[0] == '+') $search_string[0] = '' ? : $search_string[0];
 		return trim($search_string);
 	}
 }
