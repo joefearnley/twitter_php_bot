@@ -11,39 +11,30 @@
  */
 
 require_once 'PHPUnit/Framework.php';
-require_once '../twitter/Twitter.php';
-require_once '../twitter/TwitterBot.php';
-require_once '../config/Config.php';	
+require_once '../twitter/TwitterBot.php';	
 
 class TwitterTest extends PHPUnit_Framework_TestCase 
 {
-	protected $twitter = null;
-	protected $config = null;
+	private $twitter_bot = null;
 
 	function setUp() 
 	{
-		$this->config = Config::getInstance();
-		$this->twitter = new twitter();
-		
-//		$this->twitter->username = $this->config->getUsername(); 
-//		$this->twitter->password = $this->config->getPassword();
-				
-		$avail = $this->twitter->twitterAvailable();
+		$this->twitter_bot = new TwitterBot('j3fearnl', '!!B00ze!', array('hockey'));
+		$avail = $this->twitter_bot->twitterAvailable();
 		$this->assertTrue($avail);
 	}
 
 	public function tearDown()
 	{
-		unset($this->config);
-		unset($this->twitter);
+		unset($this->twitter_bot);
 	}
 
 	public function testSearch() 
 	{
-		$search_terms = $this->config->getSearchTerms();
+		$search_terms = $this->twitter_bot->getSearchTerms();
 		$search_string = TwitterBot::formatSearchString($search_terms);
-		$search_results = $this->twitter->search(urlencode($search_string));
-	
+		$search_results = $this->twitter_bot->search(urlencode($search_string));
+
 		foreach($search_results->results as $tweet) {
 			$this->assertTrue(strpos(trim(strtolower($tweet->text)), 'hockey') > 0);
 		}
@@ -51,21 +42,25 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
 	public function testShowUser() 
 	{
-		$user_info = $this->twitter->showUser(false, false, false, $this->config->getUsername());
-		$this->assertEquals($user_info->screen_name, $this->config->getUsername());
+		$user_info = $this->twitter_bot->showUser(false, false, false, $this->twitter_bot->getUsername());
+		$this->assertEquals($user_info->screen_name, $this->twitter_bot->getUsername());
 		$this->assertEquals($user_info->id, 109110810);
 		$this->assertNull($user_info->location);
 	}
 
 	public function testShowFriendship() 
 	{
-		$source_user = $this->config->getUsername();
+		$source_user = $this->twitter_bot->getUsername();
 		$target_user = 'joefearnley';
-		$friendship = $this->twitter->showFriendship($source_user, $target_user);
+		$friendship = $this->twitter_bot->showFriendship($source_user, $target_user);
 		
 		$this->assertEquals($friendship->relationship->target->screen_name, 'joefearnley');
 		$this->assertTrue($friendship->relationship->target->followed_by);
 	}
+
+	function testShowFriends() 
+	{	
+	}	
 
 	public function testPantsOnTheGround() 
 	{
