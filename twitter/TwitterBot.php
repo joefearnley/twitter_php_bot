@@ -35,6 +35,8 @@ class TwitterBot extends Twitter {
 
 			if(!$friendship->relationship->target->followed_by) {
 				$this->followUser($user_info->id, false)
+
+
 			}
 		}
 	}
