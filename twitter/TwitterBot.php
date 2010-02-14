@@ -12,15 +12,19 @@ require_once '../twitter/Twitter.php';
 
 class TwitterBot extends Twitter {
 
-	function __construct() 
+	private $username;
+	private $password;
+	private $search_terms = array();
+
+	function __construct($username, $password, $search_terms) 
 	{ 
-	}
-	
-	public function init()
-	{
 		
 	}
-
+	
+	public function followSomePeople() {
+			
+	}
+	
 	public function formatSearchString($search_terms = array()) {	
 
 		$search_string = '';
