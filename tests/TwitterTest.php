@@ -19,7 +19,7 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
 	function setUp() 
 	{
-		$this->twitter_bot = new TwitterBot('j3fearnl', '!!B00ze!', array('hockey'));
+		$this->twitter_bot = new TwitterBot('', '', array('hockey'));
 		$avail = $this->twitter_bot->twitterAvailable();
 		$this->assertTrue($avail);
 	}
@@ -36,7 +36,7 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 		$search_results = $this->twitter_bot->search(urlencode($search_string));
 
 		foreach($search_results->results as $tweet) {
-			$this->assertTrue(strpos(trim(strtolower($tweet->text)), 'hockey') > 0);
+			$this->assertContains('hockey', trim(strtolower($tweet->text)));	
 		}
 	}
 
@@ -60,6 +60,12 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
 	function testShowFriends() 
 	{	
+		$known_friend_ids = array(15909178, 10230752); 
+		$found_friend_ids = $this->twitter_bot->showFriends($this->twitter_bot->getUsername());
+		
+		foreach($found_friend_ids as $friend_id) {
+			$this->assertTrue(in_array($friend_id, $known_friend_ids));
+		}
 	}	
 
 	public function testPantsOnTheGround() 
