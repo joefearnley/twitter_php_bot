@@ -13,6 +13,7 @@
 
 	require_once '../twitter/TwitterBot.php';
 	
-	$twitter_bot = new TwitterBot('','', array(''));	
+	$twitter_bot = new TwitterBot('','', array(''));
 	$twitter_bot->init();
+
 ?>
