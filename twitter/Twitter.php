@@ -71,7 +71,7 @@ class twitter {
 	 * Returns the authenticating user's friends ids. So we don't have to call the api to check 
 	 * every relationship.
 	 * 
-	 * @param integer|string $id Optional. The user ID or name of the Twitter user to query.
+	 * @param string $screen_name. The user name of the Twitter user to query.
 	 * 
 	 * @return string
 	 */
