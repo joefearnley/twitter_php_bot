@@ -66,6 +66,25 @@ class twitter {
 	{
 	}
 
+	
+    /**
+	 * Returns the authenticating user's friends ids. So we don't have to call the api to check 
+	 * every relationship.
+	 * 
+	 * @param integer|string $id Optional. The user ID or name of the Twitter user to query.
+	 * 
+	 * @return string
+	 */
+	function showFriends( $screen_name = false)
+	{
+		if( !in_array( $this->type, array( 'xml','json'))) {
+	        return false;
+		}
+	        
+	    $request = 'http://twitter.com/friends/ids/' . $screen_name . '.json';
+	    return $this->objectify( $this->process($request) );
+	}
+	
     /**
 	 * Returns the authenticating user's friends, each with current status inline.  It's also possible to request 
 	 * another user's friends list via the id parameter below.
@@ -90,7 +109,7 @@ class twitter {
 	        $qs = $this->_glue( $args );
 	        
 	    $request = ( $id ) ? 'http://twitter.com/statuses/friends/' . $id . '.' . $this->type . $qs : 'http://twitter.com/statuses/friends.' . $this->type . $qs;
-		return $this->objectify( $this->process($request) );
+	    return $this->objectify( $this->process($request) );
 	}
 
 	/**
