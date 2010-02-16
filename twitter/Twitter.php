@@ -65,7 +65,6 @@ class twitter {
 	function twitter()
 	{
 	}
-
 	
     /**
 	 * Returns the authenticating user's friends ids. So we don't have to call the api to check 
@@ -161,6 +160,20 @@ class twitter {
 		if( $notifications )
 		    $request .= '?follow=true';
 		    
+		return $this->objectify( $this->process($request) );
+	}
+	
+	/**
+	 * Unfollows a user
+	 * @param integer|string $id the username or ID of a person you want to unfollow
+	 * @return string
+	 */
+	function leaveUser( $id )
+	{
+	    if( !in_array( $this->type, array( 'xml','json' ) ) )
+	        return false;
+	        
+		$request = 'http://twitter.com/friendships/destroy/' . $id . '.' . $this->type;
 		return $this->objectify( $this->process($request) );
 	}
 
