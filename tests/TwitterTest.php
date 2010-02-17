@@ -59,9 +59,9 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 	}
 
 	function testShowFriends() 
-	{	
+	{
 		$known_friend_ids = array(15909178, 10230752); 
-		$found_friend_ids = $this->twitter_bot->showFriends($this->twitter_bot->getUsername());
+		$found_friend_ids = $this->twitter_bot->showFriends();
 		
 		foreach($found_friend_ids as $friend_id) {
 			$this->assertTrue(in_array($friend_id, $known_friend_ids));
