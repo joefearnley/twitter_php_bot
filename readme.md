@@ -6,3 +6,6 @@ The idea is to run it on a regular basis, like everyday, in the morning maybe. Y
 
 ## Usage
     [~#] php php_twitter_php.php
+
+##Requirements
+PHP 5.2
