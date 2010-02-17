@@ -85,8 +85,7 @@ class TwitterBot extends Twitter {
 
     /**
      * Format the search string to the format of 'term1+term2+term3'.
-     * 
-     * @param string search_terms
+     * @param array search_terms
      */   
     public function formatSearchString($search_terms = array()) 
     {
