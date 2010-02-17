@@ -74,13 +74,13 @@ class twitter {
 	 * 
 	 * @return string
 	 */
-	function showFriends( $screen_name = false)
+	function showFriends()
 	{
 		if( !in_array( $this->type, array( 'xml','json'))) {
 	        return false;
 		}
 	        
-	    $request = 'http://twitter.com/friends/ids/' . $screen_name . '.json';
+	    $request = 'http://twitter.com/friends/ids/' . $this->username . '.json';
 	    return $this->objectify( $this->process($request) );
 	}
 	
@@ -156,12 +156,11 @@ class twitter {
 	    if( !in_array( $this->type, array( 'xml','json' ) ) )
 	        return false;
 	        
-		$request = 'http://twitter.com/friendships/create/' . (int) $id . '.' . $this->type;
-		if( $notifications )
-		    $request .= '?follow=true';
-		    
-		return $this->objectify( $this->process($request) );
+		$request = 'http://twitter.com/friendships/create/' . $id . '.' . $this->type;
+		$postargs = array( 'id' => $id, 'follow' => $notifications);
+		return $this->objectify( $this->process($request, $postargs) );
 	}
+	
 	
 	/**
 	 * Unfollows a user
@@ -236,7 +235,7 @@ class twitter {
 	    if( !in_array( $this->type, array( 'xml','json' ) ) )
 	        return false;
 		$request = 'http://twitter.com/account/rate_limit_status.' . $this->type;
-		return $this->objectify( $out );
+		return $this->objectify( $this->process($request) );
 	}
 
 	/**
@@ -276,12 +275,7 @@ class twitter {
 	{
 	    $url = ( $this->suppress_response_code ) ? $url . '&suppress_response_code=true' : $url;
 		$ch = curl_init($url);
-		if($postargs !== false)
-		{
-			curl_setopt ($ch, CURLOPT_POST, true);
-			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
-        }
-        
+
 		if($this->username !== false && $this->password !== false)
 			curl_setopt($ch, CURLOPT_USERPWD, $this->username.':'.$this->password );
         
@@ -297,8 +291,13 @@ class twitter {
         @curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
 
+        if($postargs !== false)
+		{
+			curl_setopt ($ch, CURLOPT_POST, true);
+			curl_setopt ($ch, CURLOPT_POSTFIELDS, $postargs);
+        }
+
         $response = curl_exec($ch);
-        
         $this->responseInfo=curl_getinfo($ch);
         curl_close($ch);
         
