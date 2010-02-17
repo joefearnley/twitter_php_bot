@@ -15,7 +15,7 @@
 
     $username = '';
     $password = '';
-    $search_terms = array('');
+    $search_terms = array('', '', '');
 
     $twitter_bot = new TwitterBot($username, $password, $search_terms);
     $twitter_bot->init();
