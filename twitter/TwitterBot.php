@@ -15,7 +15,7 @@ class TwitterBot extends Twitter {
 	private $search_terms = array();
 
 	public function TwitterBot($username, $password, $search_terms) 
-	{ 
+	{
 		$this->username = $username;
 		$this->password = $password;
 		$this->search_terms = $search_terms;
@@ -24,9 +24,13 @@ class TwitterBot extends Twitter {
 	public function getUsername() {
 		return $this->username;
 	}
-	
+
 	public function getSearchTerms() {
 		return $this->search_terms;
+	}
+
+	public function setSearchTerms($terms) {
+		$this->search_terms = $terms;
 	}
 	
 	public function init()
@@ -36,13 +40,10 @@ class TwitterBot extends Twitter {
 		$search_results = $this->search(urlencode($search_string));
 
 		foreach($search_results->results as $tweet) {
-			$user_info = $this->twitter->showUser(false, false, false, $this->username);
-			$friendship = $this->showFriendship($source_user, $target_user);
+			$friendship = $this->showFriendship($this->username, $tweet->from_user);
 
 			if(!$friendship->relationship->target->followed_by) {
-				$this->followUser($user_info->id, false);
-
-
+				$this->followUser($friendship->relationship->target->id, true);
 			}
 		}
 	}
@@ -56,6 +57,14 @@ class TwitterBot extends Twitter {
 
 		$search_string[0] = ($search_string[0] == '+') ? '' : $search_string[0];
 		return trim($search_string);
+	}
+
+	public function unfollowAllFriend()
+	{
+		$found_friend_ids = $this->twitter_bot->showFriends();
+		foreach($found_friend_ids as $friend_id) {
+			$this->leaveUser($friend_id);
+		}
 	}
 }
 
