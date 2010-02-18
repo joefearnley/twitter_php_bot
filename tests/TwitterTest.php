@@ -20,7 +20,7 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
     function setUp() 
     {
-        $this->twitter_bot = new TwitterBot('j3fearnl', '!B00ze!', array('hockey'));
+        $this->twitter_bot = new TwitterBot('', '', array(''));
         $avail = $this->twitter_bot->twitterAvailable();
         $this->assertTrue($avail);
     }
