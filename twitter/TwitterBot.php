@@ -27,6 +27,13 @@ class TwitterBot extends Twitter {
      */
     private $search_results_per_page = 15;
     
+    
+    /**
+     * @access private
+     * @var int
+     */
+    private $number_of_followees;
+    
     /**
      * Overloaded constructor.
      * 
@@ -116,6 +123,15 @@ class TwitterBot extends Twitter {
             $this->leaveUser($friend_id);
         }
     }
+
+    /**
+     * Get the number of user followees.
+     */
+    public function getNumberOfFollowees()
+    {
+        return count($this->showFriends());   
+    }
+    
 }
 
 ?>
