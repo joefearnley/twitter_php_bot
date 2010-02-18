@@ -20,7 +20,7 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
     function setUp() 
     {
-        $this->twitter_bot = new TwitterBot('', '', array('hockey'));
+        $this->twitter_bot = new TwitterBot('j3fearnl', '!B00ze!', array('hockey'));
         $avail = $this->twitter_bot->twitterAvailable();
         $this->assertTrue($avail);
     }
@@ -43,19 +43,18 @@ class TwitterTest extends PHPUnit_Framework_TestCase
 
     public function testShowUser() 
     {
-        $user_info = $this->twitter_bot->showUser(false, false, false, $this->twitter_bot->getUsername());
-        $this->assertEquals($user_info->screen_name, $this->twitter_bot->getUsername());
+        $user_info = $this->twitter_bot->showUser(false, false, false, $this->twitter_bot->username);
+        $this->assertEquals($user_info->screen_name, $this->twitter_bot->username);
         $this->assertEquals($user_info->id, 109110810);
         $this->assertNull($user_info->location);
     }
 
     public function testShowFriendship() 
     {
-        $source_user = $this->twitter_bot->getUsername();
         $target_user = 'joefearnley';
-        $friendship = $this->twitter_bot->showFriendship($source_user, $target_user);
+        $friendship = $this->twitter_bot->showFriendship($this->twitter_bot->username, $target_user);
 
-        $this->assertEquals($friendship->relationship->target->screen_name, 'joefearnley');
+        $this->assertEquals($friendship->relationship->target->screen_name, $target_user);
         $this->assertTrue($friendship->relationship->target->followed_by);
     }
 
@@ -64,8 +63,8 @@ class TwitterTest extends PHPUnit_Framework_TestCase
         $known_friend_ids = array(15909178, 10230752); 
         $found_friend_ids = $this->twitter_bot->showFriends();
 
-        foreach($found_friend_ids as $friend_id) {
-            $this->assertTrue(in_array($friend_id, $known_friend_ids));
+        foreach($known_friend_ids as $friend_id) {
+            $this->assertTrue(in_array($friend_id, $found_friend_ids));
         }
     }	
 
