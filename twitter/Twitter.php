@@ -61,7 +61,7 @@ class twitter {
      * @var boolean
      */
      var $debug = false;
-    
+     
     function twitter()
     {
     }
@@ -212,16 +212,23 @@ class twitter {
      * @author joe fearnley
      *
      * @param $terms
+     * @param $rpp
      * 
      * @return twitter api object
      */
-    function search($terms='') 
+    function search($terms='', $rpp=false) 
     {
         if( $terms ==  '') {
             return false;
         }
 
-        $request = 'http://search.twitter.com/search.' . $this->type . '?q=' . $terms;	
+        $qs = '?q=' . $terms;
+
+        if($rpp) {
+            $qs .= '&rpp=' . $rpp;
+        }
+
+        $request = 'http://search.twitter.com/search.' . $this->type . $qs;	
         return $this->objectify( $this->process($request) );
     }
 
