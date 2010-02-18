@@ -9,7 +9,7 @@
  * @version 0.1
  */ 
 
-require_once '../twitter/Twitter.php';
+require_once 'Twitter.php';
 
 class TwitterBot extends Twitter {
 
@@ -19,16 +19,13 @@ class TwitterBot extends Twitter {
      * @var array
      */
     private $search_terms = array();
-
+    
     /**
-     * Default constructor. Sets used variables to null.
-     */    
-    public function TwitterBot() 
-    {
-        $this->username = null;
-        $this->password = null;
-        $this->search_terms = null;
-    }
+     * Results per page for search api.
+     * @access private
+     * @var int
+     */
+    private $search_results_per_page = 15;
     
     /**
      * Overloaded constructor.
@@ -37,7 +34,7 @@ class TwitterBot extends Twitter {
      * @param string password
      * @param string search_terms
      */   
-    public function TwitterBot($username, $password, $search_terms) 
+    public function TwitterBot($username=false, $password=false, $search_terms=false) 
     {
         $this->username = $username;
         $this->password = $password;
@@ -47,24 +44,35 @@ class TwitterBot extends Twitter {
     /**
      * Accessor for username.
      */  
-    public function getUsername() {
+    public function getUsername() 
+    {
         return $this->username;
     }
 
     /**
      * Accessor for search_terms.
      */  
-    public function getSearchTerms() {
+    public function getSearchTerms() 
+    {
         return $this->search_terms;
     }
 
     /**
      * Mutator for search_terms.
      */   
-	public function setSearchTerms($terms) {
+	public function setSearchTerms($terms) 
+	{
 		$this->search_terms = $terms;
 	}
 	
+    /**
+     * Mutator for results per page. This defaults to 15, so set it if you want more.
+     */  
+    public function setSearchResultsPerPage($rpp) 
+    {
+        return $this->search_results_per_page = $rpp;
+    }
+
     /**
      * Main function that runs the bot.
      */   
@@ -72,7 +80,7 @@ class TwitterBot extends Twitter {
     {
         $search_terms = $this->search_terms;
         $search_string = $this->formatSearchString($search_terms);
-        $search_results = $this->search(urlencode($search_string));
+        $search_results = $this->search(urlencode($search_string), $search_results_per_page);
 
         foreach($search_results->results as $tweet) {
             $friendship = $this->showFriendship($this->username, $tweet->from_user);
