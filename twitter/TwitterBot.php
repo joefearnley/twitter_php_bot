@@ -67,10 +67,10 @@ class TwitterBot extends Twitter {
     /**
      * Mutator for search_terms.
      */   
-	public function setSearchTerms($terms) 
-	{
-		$this->search_terms = $terms;
-	}
+    public function setSearchTerms($terms) 
+    {
+        $this->search_terms = $terms;
+    }
 	
     /**
      * Mutator for results per page. This defaults to 15, so set it if you want more.
@@ -130,8 +130,7 @@ class TwitterBot extends Twitter {
     public function getNumberOfFollowees()
     {
         return count($this->showFriends());   
-    }
-    
+    }  
 }
 
 ?>
