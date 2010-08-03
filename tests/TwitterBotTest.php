@@ -46,11 +46,11 @@ class TwitterBotTest extends PHPUnit_Framework_TestCase
     }
 
     public function testFormatSearchString() {
-        $search_terms = array('hockey','peter klima','cheifs');
-        $this->assertEquals($this->twitter_bot->formatSearchString($search_terms), 'hockey+peter klima+cheifs');
+        $this->twitter_bot->setSearchTerms(array('hockey','peter klima','cheifs'));
+        $this->assertEquals($this->twitter_bot->formatSearchString(), 'hockey+peter klima+cheifs');
 
-        $search_terms = array('looking','for','hookers');
-        $this->assertEquals($this->twitter_bot->formatSearchString($search_terms), 'looking+for+hookers');
+        $this->twitter_bot->setSearchTerms(array('looking','for','hookers'));
+        $this->assertEquals($this->twitter_bot->formatSearchString(), 'looking+for+hookers');
     }
 }
 

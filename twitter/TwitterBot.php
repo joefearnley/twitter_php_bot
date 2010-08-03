@@ -67,7 +67,7 @@ class TwitterBot extends Twitter {
     /**
      * Mutator for search_terms.
      */   
-    public function setSearchTerms($terms) 
+    public function setSearchTerms($terms=array())
     {
         $this->search_terms = $terms;
     }
@@ -85,10 +85,7 @@ class TwitterBot extends Twitter {
      */   
     public function init()
     {
-        $search_terms = $this->search_terms;
-        $search_string = $this->formatSearchString($search_terms);
-        $search_results = $this->search(urlencode($search_string), $search_results_per_page);
-
+        $search_results = $this->search(urlencode(), $search_results_per_page);
         foreach($search_results->results as $tweet) {
             $friendship = $this->showFriendship($this->username, $tweet->from_user);
 
@@ -100,13 +97,12 @@ class TwitterBot extends Twitter {
 
     /**
      * Format the search string to the format of 'term1+term2+term3'.
-     * @param array search_terms
      */   
-    public function formatSearchString($search_terms = array()) 
+    public function formatSearchString() 
     {
         $search_string = '';
-        for($i = 0; $i < sizeof($search_terms); $i++) {
-            $search_string = $search_string . '+' . $search_terms[$i];
+        for($i = 0; $i < sizeof($this->search_terms); $i++) {
+            $search_string = $search_string . '+' . $this->search_terms[$i];
         }
 
         $search_string[0] = ($search_string[0] == '+') ? '' : $search_string[0];
