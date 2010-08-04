@@ -26,8 +26,7 @@ class TwitterBot extends Twitter {
      * @var int
      */
     private $search_results_per_page = 15;
-    
-    
+
     /**
      * @access private
      * @var int
@@ -97,7 +96,7 @@ class TwitterBot extends Twitter {
      */   
     public function init()
     {
-        $search_results = $this->search(urlencode(), $search_results_per_page);
+        $search_results = $this->search(urlencode($this->formatSearchString()), $search_results_per_page);
         foreach($search_results->results as $tweet) {
             $friendship = $this->showFriendship($this->username, $tweet->from_user);
 
