@@ -35,6 +35,18 @@ class TwitterBot extends Twitter {
     private $number_of_followees;
     
     /**
+     * @access private
+     * @var string
+     */
+    private $username;
+
+    /**
+     * @access private
+     * @var string
+     */
+    private $password;
+
+    /**
      * Overloaded constructor.
      * 
      * @param string username
